@@ -1,0 +1,23 @@
+{
+  "name": "node-js-learner",
+  "version": "1.0.0",
+  "description": "Learning to use Node-JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecDusty/node-js-learner.git"
+  },
+  "author": "Erin Macalligan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ecDusty/node-js-learner/issues"
+  },
+  "homepage": "https://github.com/ecDusty/node-js-learner#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
