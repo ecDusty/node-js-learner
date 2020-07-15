@@ -49,7 +49,7 @@ app.use(cors());
 
 // Setup main project folder
 app.use(express.static(path.join(__dirname, 'public') || 'public', {
-	etag: true
+	etag: false // Leave false until HTML ready to launch.
   }));
 
 // Setup HTML page loads on http request
