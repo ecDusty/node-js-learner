@@ -4,6 +4,27 @@ html
     title= title
     link(rel='stylesheet', href='/css/style.css')
     script(src='/js/main.js',defer)
-  body
-    h1(class='tippy') testing
-    block content
+  body.grid.grid-row-main.grid-col-main
+    block header
+      header.header.container-flex
+        .flex-row.align-items-stretch.justify-con-between.pos-relative
+          .header-logo.pl-0
+            a(href='/')
+              img(src='/img/horizontal-logo-off-white.svg', alt='Unlikely IT Logo, in the header')
+          nav.nav.container-flex
+    main.main.px-15-px
+      block content
+    block foot
+      footer.footer.px-15-px.pb-4
+        button.backtotop.js--backtotop ^ back to top
+        .footer-menu.gCol-12.pt-5.pb-3
+          .footer-logo.pl-0
+            a(href='/')
+              img(src='/img/horizontal-logo-off-white.svg', alt='Unlikely IT Logo, in the footer')
+        .gCol-12.gCol-sm-6-start.py-3
+          ul.social.flex-row.list-reset
+            li.social.item
+              a(href='https://twitter.com/UnlikelyIT', target='_blank' rel='noopenner nofollow noreferrer')
+                b Twitter
+        .gCol-12.gCol-sm-6-end.py-3.text-right
+          p Always know that help is just an <a href="mailto:help@unlikelyit.com">email</a> away

@@ -49,7 +49,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Setup main project folder
-app.use(express.static(path.join(__dirname, 'public') || 'public'));
+app.use(express.static(path.join(__dirname, 'public') || 'public', {
+	etag: false
+  }));
 
 // Setup HTML page loads on http request
 app.use('/', indexRouter);
@@ -57,7 +59,6 @@ app.use('/', indexRouter);
 /**
  * ======================
  * API Build Section    =
- *                      =
  * ======================
  */
 
@@ -68,6 +69,10 @@ app.get('/get-data', (req, res) => {
 	res.send(projectData);
 });
 
+app.get('/get-journals', (req, res) => {
+	res.send(projectData.journals);
+});
+
 app.get('/get-entrycount', (req, res) => {
 	res.send({ count: projectData.entryCount });
 });
@@ -75,7 +80,7 @@ app.get('/get-entrycount', (req, res) => {
 /**
  * POST Functions
  */
-app.post('/api/post/entry', (req, res) => {
+app.post('/post-entry', (req, res) => {
 	projectData.push(req.body);
 	projectData.entryCount = projectData.journals.length;
 	res.send({
@@ -83,6 +88,14 @@ app.post('/api/post/entry', (req, res) => {
 		numEntries: projectData.entryCount
 	});
 });
+
+app.post('/post-update-entry', (req, res) => {
+	res.send({
+		response: 'This function is not built yet'
+	})
+});
+
+// END OF API ==============================================
 
 
 
