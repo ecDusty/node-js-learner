@@ -1,7 +1,7 @@
 // Local data holder
 let projectData = {
 	title: 'Weather Journal Data',
-	postCount: 0,
+	entryCount: 0,
 	journals: []
 };
 
@@ -13,12 +13,20 @@ const createError = require('http-errors');
 const path = require('path');
 const cookieParser = require('cookie-parser'); // Still have no idea what this is for
 const logger = require('morgan');
+const debug = require('debug')('node-js-learner:server');
 
 // HTML Page loaders
 const indexRouter = require('./routes/index');
 
+
 // Initialize Express
 const app = express();
+
+/**
+ *  Setup port
+ */
+const port = 8080;
+
 
 /**
  * Start up the view engine
@@ -27,13 +35,15 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// Startup the nice console logger
+app.use(logger('dev'));
 
 // Startup body parser dependency
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Startup Cookie Parser (Not sure about this one yet)
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // Setup CORS policy
 app.use(cors());
@@ -43,6 +53,38 @@ app.use(express.static(path.join(__dirname, 'public') || 'public'));
 
 // Setup HTML page loads on http request
 app.use('/', indexRouter);
+
+/**
+ * ======================
+ * API Build Section    =
+ *                      =
+ * ======================
+ */
+
+/**
+ * GET Functions
+ */
+app.get('/get-data', (req, res) => {
+	res.send(projectData);
+});
+
+app.get('/get-entrycount', (req, res) => {
+	res.send({ count: projectData.entryCount });
+});
+
+/**
+ * POST Functions
+ */
+app.post('/api/post/entry', (req, res) => {
+	projectData.push(req.body);
+	projectData.entryCount = projectData.journals.length;
+	res.send({
+		response: 'Journal Entry Added',
+		numEntries: projectData.entryCount
+	});
+});
+
+
 
 // Catch 404 and forward to error handler
 //* this catcher was copied by the myExpressApp example
@@ -62,6 +104,8 @@ app.use((err, req, res, next) => {
 	res.render('error');
 });
 
+
+// Export the app
 module.exports = app;
 
 /**
