@@ -11,9 +11,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const createError = require('http-errors');
 const path = require('path');
-const cookieParser = require('cookie-parser'); // Still have no idea what this is for
+// const cookieParser = require('cookie-parser'); // Still have no idea what this is for
 const logger = require('morgan');
-const debug = require('debug')('node-js-learner:server');
 
 // HTML Page loaders
 const indexRouter = require('./routes/index');
