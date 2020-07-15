@@ -1,8 +1,12 @@
 // Local data holder
 let projectData = {
 	title: 'Testing',
-	postCount: 0
+	postCount: 0,
+	animals: []
 };
+
+// Base functions
+const say = text => console.log(text);
 
 // Server
 const express = require('express');
@@ -45,3 +49,22 @@ app.post('/test', (req, res) => {
 	projectData.postCount++;
 	res.send('Post received!');
 });
+
+app.post('/add/animals', (req, res) => {
+
+	projectData.animals.push(req.body);
+	console.log(req.body);
+	res.send('Post received!');
+});
+
+const data = [];
+
+app.post('/animal', addAnimal);
+
+function addAnimal (req, res) {
+	data.push(req.body);
+	say(data);
+	res.send({
+		res: 'Post received!'
+	});
+}
