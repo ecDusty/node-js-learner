@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/ecDusty/node-js-learner.git"
   },
-  "author": "Erin Macalligan",
+  "author": "ecDusty",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ecDusty/node-js-learner/issues"
