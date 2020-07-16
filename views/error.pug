@@ -4,7 +4,8 @@ block pageTitle
   title ERROR | unlikely IT's Project 3 Server
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
-  .js-toggle-redirect-homepage(hidden)
+  .px-4.px-md-5.py-4.py-md-5
+    h1= message
+    h2= error.status
+    pre #{error.stack}
+    .js-toggle-redirect-homepage(hidden)

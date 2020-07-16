@@ -1,5 +1,54 @@
 extends layout
 
 block content
+  .px-3.Journal
+    .row
+      .col-12.col-md-3
+        form.Journal__Form.js-create-journal-form(action="/post-entry")
+          .form-header.pb-2
+            h2 Add a Weather Journal Entry
+          .form-group
+            input.form-input#jTitle(name="journalTitle")
+            label(for="jTitle") Entry Title
+          .form-group
+            input.form-input#jDate(name="journalDate")
+            label(for="jDate") Date
+          .form-header.pt-2.pb-1.w-100
+            h4 Location
+            p Please feel free to check that the detected location is correct, if not feel free to edit it to update weather information.
+          .form-group.w-50
+            input.form-input#jLat(name="journalLat", disabled)
+            label(for="jLat") Latitude
+          .form-group.w-50
+            input.form-input#jLng(name="journalLng", disabled)
+            label(for="jLng") Longitude
+          .w-100
+            p If the GPS coordinates aren't showing / incorrect, please type the city below.
+            .form-group
+              input.form-input#jCity(name="journalCity", disabled)
+              label(for="jCity") City
+            .form-group
+              input.form-input#jCountry(name="journalCountry", disabled)
+              label(for="jCountry") Country
+              p
+                sup Please make sure to use to the
+                  a(href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes") ISO 3166 2 digit country codes
+          .form-header.pt-2.pb-1.w-100
+            h4 Weather Details
+            p Please feel free to check that the detected location is correct, if not feel free to edit it to update weather information.
+          .form-group.w-50
+            input.form-input#jTemp(name="journalTemp", disabled)
+            label(for="jTemp") Temperature
+          .form-group.w-50
+            input.form-input#jHumid(name="journalHumid", disabled)
+            label(for="jHumid") Humidity
+          .form-btn-group
+            button.Form__Button.btn.btn-primary.w-100
+              span.w-100 + Add entry
+      .col-12.col-md-9
+        .row.js-journal-entry-list.Journal__List
   h1= title
   p Welcome to #{title}
+  .Col__Left
+
+  .Col__Right
