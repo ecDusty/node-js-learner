@@ -5,6 +5,10 @@ let projectData = {
 	journals: []
 };
 
+const weatherAPI = {
+	api: 'ace613c7bf56aa02905bcc207c00efee'
+};
+
 // Dependancies
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -74,6 +78,11 @@ app.get('/get-journals', (req, res) => {
 
 app.get('/get-entrycount', (req, res) => {
 	res.send({ count: projectData.entryCount });
+});
+
+app.get('/get-weatherapi', (req, res) => {
+	console.log('Weather API Sent');
+	res.send(weatherAPI);
 });
 
 /**
