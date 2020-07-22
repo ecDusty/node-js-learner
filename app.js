@@ -68,19 +68,19 @@ app.use('/', indexRouter);
 /**
  * GET Functions
  */
-app.get('/get-data', (req, res) => {
+app.get('/api/get/data', (req, res) => {
 	res.send(projectData);
 });
 
-app.get('/get-journals', (req, res) => {
+app.get('/api/get/journals', (req, res) => {
 	res.send(projectData.journals);
 });
 
-app.get('/get-entrycount', (req, res) => {
+app.get('/api/get/entrycount', (req, res) => {
 	res.send({ count: projectData.entryCount });
 });
 
-app.get('/get-weatherapi', (req, res) => {
+app.get('/api/get/weatherapi', (req, res) => {
 	console.log('Weather API Sent');
 	res.send(weatherAPI);
 });
@@ -88,7 +88,7 @@ app.get('/get-weatherapi', (req, res) => {
 /**
  * POST Functions
  */
-app.post('/post-entry', (req, res) => {
+app.post('/api/post/entry', (req, res) => {
 	projectData.push(req.body);
 	projectData.entryCount = projectData.journals.length;
 	res.send({
@@ -97,7 +97,7 @@ app.post('/post-entry', (req, res) => {
 	});
 });
 
-app.post('/post-update-entry', (req, res) => {
+app.post('/api/post/update-entry', (req, res) => {
 	res.send({
 		response: 'This function is not built yet'
 	})
