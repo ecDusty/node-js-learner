@@ -10,7 +10,7 @@ const http = require('http');
 /**
  *  Setup port
  */
-const port = 8080;
+const port = 80;
 app.set('port', port);
 
 /**

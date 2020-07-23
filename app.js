@@ -28,7 +28,7 @@ const app = express();
 /**
  *  Setup port
  */
-const port = 8080;
+const port = 80;
 
 
 /**
@@ -76,6 +76,11 @@ app.get('/api/get/journals', (req, res) => {
 	res.send(projectData.journals);
 });
 
+app.get('/api/get/latest-journal', (req, res) => {
+	const lastNum = projectData.journals.length - 1;
+	res.send(projectData.journals[lastNum]);
+});
+
 app.get('/api/get/entrycount', (req, res) => {
 	res.send({ count: projectData.entryCount });
 });
@@ -89,7 +94,8 @@ app.get('/api/get/weatherapi', (req, res) => {
  * POST Functions
  */
 app.post('/api/post/entry', (req, res) => {
-	projectData.push(req.body);
+	console.log(req.body)
+	projectData.journals.push(req.body);
 	projectData.entryCount = projectData.journals.length;
 	res.send({
 		response: 'Journal Entry Added',
