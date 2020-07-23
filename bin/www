@@ -16,7 +16,6 @@ app.set('port', port);
 /**
  * Start the http server
  */
-
 const server = http.createServer(app);
 
 

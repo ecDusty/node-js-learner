@@ -150,7 +150,8 @@ const createJournalEl = (title, date, coords, temp, humid, city, country) => {
 		<h4>${title}</h4>
 		<h5><sup>${date}</sup></h5>
 		<p><b>Temperature:</b> ${temp}  |  <b>Humidity:</b> ${humid}</p>
-		${city ? `<p>${city}, ${country}</p>` : `Latitude: ${coords.lat}, Longitute: ${coords.lng}`}
+		${city ? `<p>${city}, ${country}</p>` : ``}
+		${coords.lat ? `<p>Latitude: ${coords.lat}, Longitute: ${coords.lng}</p>` : ''}
 	<div>`
 	return template;
 }
@@ -211,7 +212,6 @@ if (jForm) {
 	// - then pull weather information automatically with coordinates
 	getWeatherAPI().then(res => {
 		api = res.api;
-		console.log(api);
 	}).catch(error => {
 		console.log('==== Failed to get API key, continue with get coords =====')
 		return requestUserCoords();
@@ -238,8 +238,16 @@ if (jForm) {
 		console.log(res);
 	});
 
+	// Update app with currently stored entries
+
+
 	getCurrJournalEntries().then(res => {
-		addToJournalList(res.title, res.date, res.coords, res.city, res.country, res.temp, res.humid);
+		if (res.length > 0) {
+			res.forEach(item => addToJournalList(item.title, item.date, item.coords, item.city, item.country, item.temp, item.humid));
+		} else {
+			jList.insertAdjacentHTML('afterbegin', `<h3>No journal entries</h3>
+				<p>At this time no weather journal entries have been made. Please feel free to add a weather journal entry now.</p>`);
+		}
 	})
 
 	btnEntry.addEventListener('click', (e) => {
@@ -277,11 +285,13 @@ if (jForm) {
 
 			postJournalEntry(journal)
 			.then(res => {
-				console.log(res);
+				if (res.numEntries === 1) {
+					jList.innerHTML = '';
+				}
 				return getLatestJournalEntry();
 			}).then(res => {
 				addToJournalList(res.title, res.date, res.coords, res.city, res.country, res.temp, res.humid);
-			})
+			});
 		}
 	});
 
@@ -296,6 +306,12 @@ if (jForm) {
 		.then(res => {
 			const temp = `${Math.floor(res.main.temp - 273.14, -1)}ºC`;
 			const humid = `${res.main.humidity}%`;
+
+			if (!useLatLong) {
+				jLat.value = res.coord.lat;
+				jLong.value = res.coord.lon;
+			}
+
 			setCurrentWeather(temp, humid);
 		})
 	});

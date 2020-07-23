@@ -25,6 +25,10 @@ const indexRouter = require('./routes/index');
 const allowedOrigins = ['https://ecdusty.github.io',
 						'https://unlikelyit.azurewebsites.net/',
 						'localhost:8080']
+const corsOptions = {
+	origin: 'https://ecdusty.github.io',
+	optionsSuccessStatus: 200
+}
 
 // Initialize Express
 const app = express();
@@ -48,19 +52,8 @@ app.use(bodyParser.json());
 // app.use(cookieParser());
 
 // Setup CORS policy
-app.use(cors({
-	origin: (origin, callback) => {
-		// allow requests with no origin (Apps, and curl requests)
-		if (!origin) return callback(null, true);
-		if (allowedOrigins.indexOf(origin) === -1) {
-			const msg = `The CORS policy for this site does not
-				all access from the specified Origin.`;
-			return callback(new Error(msg), false);
-		}
-
-		return callback(null, true);
-	}
-}));
+// app.use(cors());
+app.options('*', cors(corsOptions))
 
 // Setup main project folder
 app.use(express.static(path.join(__dirname, 'public') || 'public', {
@@ -120,6 +113,13 @@ app.post('/api/post/update-entry', (req, res) => {
 	})
 });
 
+
+
+app.get('/api/get/test', (req, res) => {
+	console.log('Weather API Sent');
+	console.log(req);
+	res.send(weatherAPI);
+});
 // END OF API ==============================================
 
 
