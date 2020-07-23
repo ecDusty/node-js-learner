@@ -21,14 +21,13 @@ const logger = require('morgan');
 // HTML Page loaders
 const indexRouter = require('./routes/index');
 
+// CORS Origins allowed
+const allowedOrigins = ['https://ecdusty.github.io',
+						'https://unlikelyit.azurewebsites.net/',
+						'localhost:8080']
 
 // Initialize Express
 const app = express();
-
-/**
- *  Setup port
- */
-const port = 80;
 
 
 /**
@@ -49,7 +48,19 @@ app.use(bodyParser.json());
 // app.use(cookieParser());
 
 // Setup CORS policy
-app.use(cors());
+app.use(cors({
+	origin: (origin, callback) => {
+		// allow requests with no origin (Apps, and curl requests)
+		if (!origin) return callback(null, true);
+		if (allowedOrigins.indexOf(origin) === -1) {
+			const msg = `The CORS policy for this site does not
+				all access from the specified Origin.`;
+			return callback(new Error(msg), false);
+		}
+
+		return callback(null, true);
+	}
+}));
 
 // Setup main project folder
 app.use(express.static(path.join(__dirname, 'public') || 'public', {
